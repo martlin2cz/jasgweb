@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/jasgPage.xhtml">
+	<ui:define name="userPanel">
+		<h:form id="studentPanelForm">
+		Student: #{login.loggedStudent.firstname} #{login.loggedStudent.surname} 
+		<h:commandButton action="#{login.logOut}" value="Odhlásit" />
+		</h:form>
+	</ui:define>
+	<ui:define name="body">
+		<nav>[Menu Studenta]</nav>
+		
+		<article>
+			<ui:insert name="content"></ui:insert>
+		</article>
+	</ui:define>
+</ui:composition>
+</html>

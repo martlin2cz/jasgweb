@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="utf-8"/>
+	<!-- CSS -->
+	<!-- JS -->
+	<title>JAssignment přihlášení</title>
+</h:head>
+<h:body>
+	<header>
+		<h:form id="#{resultReporter.resultFormName}">
+			<h:message for="#{resultReporter.resultFormName}" errorStyle="color: red;" warnStyle="color: khaki;"  infoStyle="color: darkgreen"/>
+		</h:form>
+		<div style="font-size: 250%; font-family: monospace; font-weight: bold;">JAssignment;</div>
+	</header>
+	<article>
+		<ui:insert name="body" >
+			Přihlašovací formulář
+		</ui:insert>
+	</article>
+
+
+</h:body>
+</html>

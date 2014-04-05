@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+</h:head>
+<h:body>
+	<header>
+		<div id="logo">
+			<div style="font: bold 350% monospace">JAssignment();</div>
+		</div>
+
+		<c:if test="#{login.loggedIn}"><!-- logged in -->
+			<div id="userPanel">
+				<ui:insert name="userPanel">[Nepřihlášen]</ui:insert>
+			</div>
+		</c:if>
+	</header>
+</h:body>
+</html>

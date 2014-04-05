@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head></h:head> 
+<body> 
+<h:form id="loginForm">
+			<fieldset>
+				<legend>Přihlášení</legend>
+<!-- 				<h:message id="loginError" for="loginForm" /> -->
+				<br/>
+
+				<h:outputLabel value="Uživatelské jméno:" />
+				<h:inputText id="username" value="#{loginForm.username}"
+					validator="#{loginForm.usernameValidator.validate}">
+				</h:inputText>
+				<h:message for="username" />
+
+				<br />
+
+				<h:outputLabel value="Heslo:" />
+				<h:inputText id="password" value="#{loginForm.password}"
+					validator="#{loginForm.passwordValidator.validate}" />
+				<h:message for="password" />
+
+				<br />
+				
+				<h:commandButton action="#{loginForm.logIn}" value="Přihlásit se" />
+			</fieldset>
+		</h:form>
+</body> 
+</html>
