@@ -8,7 +8,7 @@ import cz.upol.jasgweb.Session;
 public class Login {
 	private static final String MANAGED_BEAN_NAME = "login";
 
-	private Student loggedStudent = new Student("eM", "džeJ", "m@rtl.in");
+	private Student loggedStudent;
 
 	public Login() {
 		System.out.println("Jede konstruktor!");
