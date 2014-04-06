@@ -2,7 +2,7 @@
 <web-app id="WebApp_ID" version="3.0"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<display-name>JAssignment-1</display-name>
+	<display-name>JAssignment web app v.1</display-name>
 	<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -30,7 +30,23 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>JAsgLoginFilter</filter-name>
+		<filter-class>cz.upol.jasgweb.login.JAsgLoginFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>JAsgLoginFilter</filter-name>
+		<url-pattern>/pages/student/*</url-pattern>
+	</filter-mapping>
+	
+
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	
+<!-- 	<error-page> -->
+<!-- 		<exception-type>java.lang.Exception</exception-type> -->
+<!-- 		<location>/index.xhtml</location> -->
+<!-- 	</error-page> -->
 </web-app>

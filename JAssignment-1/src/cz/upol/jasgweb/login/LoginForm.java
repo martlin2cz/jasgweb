@@ -13,8 +13,6 @@ public class LoginForm {
 	private static final Validator PASSWORD_VALIDATOR = new NoEmptyStrValidator(
 			"heslo");
 
-
-	
 	public LoginForm() {
 	}
 
@@ -49,12 +47,11 @@ public class LoginForm {
 	}
 
 	public String logIn() {
-		Login login = new Login();
-		
-		login.logIn(username, password);
-		
-		return "";
+		Login login = Login.getLogin();
+
+		String result = login.logIn(username, password);
+
+		return result;
 	}
-	
 
 }

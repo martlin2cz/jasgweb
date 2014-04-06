@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/studentsPage.xhtml">
+	<ui:define name="content">
+		<h1>Přehled</h1>
+		Student: #{login.loggedStudent.firstname} #{login.loggedStudent.surname}<br />
+		Odevzdané úkoly: [0]<br />
+		Zbývá odevzdat: [1]<br />
+
+		<h1>Úkoly k odevzdání</h1>
+		<h:dataTable var="assignment" value="#{studentsSummary.asgsToSubmit}">
+			<h:column>
+				<div style="border: 1px solid #C0C0C0">
+					<h4>#{assignment.title}</h4>
+					<p>#{assignment.description}</p>
+					[Nahrát řešení]
+				</div>
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

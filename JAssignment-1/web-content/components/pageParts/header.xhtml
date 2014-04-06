@@ -8,13 +8,13 @@
 <h:head>
 </h:head>
 <h:body>
-	<header>
+	<header style="background-color: #EAFADA">
 		<div id="logo">
 			<div style="font: bold 350% monospace">JAssignment();</div>
 		</div>
 
-		<c:if test="#{login.loggedIn}"><!-- logged in -->
-			<div id="userPanel">
+		<c:if test="#{login.loggedIn}">
+			<div id="userPanel"  style="background-color: #EAEAFA">
 				<ui:insert name="userPanel">[Nepřihlášen]</ui:insert>
 			</div>
 		</c:if>

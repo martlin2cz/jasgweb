@@ -1,41 +1,66 @@
 package cz.upol.jasgweb.login;
 
+import javax.naming.AuthenticationException;
+import javax.servlet.ServletRequest;
+
 import cz.upol.jasg.jasgdb.data.students.Student;
 import cz.upol.jasg.jasgdb.errors.DataAccessException;
 import cz.upol.jasgweb.ResultReporter;
 import cz.upol.jasgweb.Session;
 
 public class Login {
-	private static final String MANAGED_BEAN_NAME = "login";
+	private static final String ERROR = "error";
+	private static final String UNSUCCESS = "unsuccess";
+	private static final String SUCCESS = "success";
+
+	public static final String MANAGED_BEAN_NAME = "login";
+	public static final String MAIN_PAGE = "index.xhtml";
 
 	private Student loggedStudent;
 
 	public Login() {
-		System.out.println("Jede konstruktor!");
 	}
 
 	public static Login getLogin() {
-		Login login = Session.getBean(MANAGED_BEAN_NAME);
+		Login login = Session.<Login> getBean(MANAGED_BEAN_NAME);
+		if (login == null) {
+			login = new Login();
+			Session.<Login> addBean(MANAGED_BEAN_NAME, login);
+		}
+
 		return login;
 	}
 
+	public static Login getLogin(ServletRequest request) {
+		return Session.getBean(request, MANAGED_BEAN_NAME);
+	}
+
 	public Student getLoggedStudent() {
-		System.out.println("Čtu lognutýho na \" " + loggedStudent);
 		return loggedStudent;
 	}
 
 	public void setLoggedStudent(Student loggedStudent) {
-		System.out.println("Nastavuji lognutýho na - " + loggedStudent);
 		this.loggedStudent = loggedStudent;
 	}
 
 	public boolean isLoggedIn() {
-		System.out.println("Je lognutý? " + (loggedStudent != null));
 		return loggedStudent != null;
 	}
 
-	public void logIn(String username, String password) {
-		System.out.println("Provádím login...");
+	public String getCheckLogin() throws AuthenticationException {
+		if (isLoggedIn()) {
+			return SUCCESS;
+		} else {
+			ResultReporter.reportWarning("Nejste přihlášen",
+					"Nejste přihlášen přihlašete se");
+			// Session.reloadTo("");
+			// throw new AuthenticationException("Tady nemáš co dělat");
+
+			return UNSUCCESS;
+		}
+	}
+
+	public String logIn(String username, String password) {
 		Student studentToLogIn;
 
 		try {
@@ -43,11 +68,14 @@ public class Login {
 
 			if (studentToLogIn != null) {
 				loginSuccessfull(studentToLogIn);
+				return SUCCESS;
 			} else {
 				loginUnsuccessfull(username, password);
+				return UNSUCCESS;
 			}
 		} catch (DataAccessException e) {
 			loginError(e);
+			return ERROR;
 		}
 	}
 
@@ -72,11 +100,13 @@ public class Login {
 		ResultReporter.reportError(summary, detailedMessage, e);
 	}
 
-	public void logOut() {
+	public String logOut() {
 		loggedStudent = null;
 
 		String summary = "Odhlášení bylo úspěšné";
 		String detailedMessage = "Byl jste úspěšně odhlášen.";
 		ResultReporter.reportSuccess(summary, detailedMessage);
+
+		return "";
 	}
 }
