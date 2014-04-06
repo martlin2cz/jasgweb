@@ -8,16 +8,20 @@
 <h:head>
 </h:head>
 <h:body>
-<nav>
-<div id="studentsMenu">
-	<h:form>
-		<h:commandLink value="Přehled" action="#{studentsSummary.load}" />
-		|
-		<h:commandLink value="Odevzdaná" action="#{studentsDoneAsgs.load}" />
-	</h:form>
-</div>
-</nav>
+	<nav>
+		<div id="studentsMenu">
+			<h:form>
+				Studentský menu:
+				<h:link value="Přehled" outcome="/pages/student/summary" />
+				|
+				<h:link value="K odevzdání" outcome="/pages/student/toSubmit" />
+				|
+				<h:link value="Splněno" outcome="/pages/student/done" />
+			</h:form>
+		</div>
+	</nav>
 
 
 
-</h:body></html>
+</h:body>
+</html>

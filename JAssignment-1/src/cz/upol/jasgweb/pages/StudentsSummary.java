@@ -1,44 +1,85 @@
 package cz.upol.jasgweb.pages;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import cz.upol.jasg.jasgdb.data.assignments.Assignment;
-import cz.upol.jasg.jasgdb.data.students.Student;
 import cz.upol.jasg.jasgdb.errors.DataAccessException;
 import cz.upol.jasgweb.ResultReporter;
-import cz.upol.jasgweb.login.Login;
 
-public class StudentsSummary {
+public class StudentsSummary extends StudentsDataView {
 
-	private Student student;
-	private LinkedList<Assignment> asgsToSubmit;
-	
 	public StudentsSummary() {
-		doLoad();	//TODO TOREM
-	}
-	
-	public LinkedList<Assignment> getAsgsToSubmit() {
-		return asgsToSubmit;
+		super();
+		///
+		doLoad();
 	}
 
-	public void doLoad() {
-		student = Login.getLogin().getLoggedStudent();
+	public boolean isHasCredit() {
+		return getStudent().isHasCredit();
+	}
+
+	public boolean isHasAllAssignmentsOK() {
 		try {
-			asgsToSubmit = new LinkedList<Assignment>(student.getAssignmentsSolutions(false, true).keySet());
+			return getStudent().hasActuallyAllOK();
 		} catch (DataAccessException e) {
-			String summary = "Chyba při načítání dat";
-			String detailedMessage = "Nepodařilo se načíst seznam úkolů";
-			ResultReporter.reportError(summary, detailedMessage, e);
+			ResultReporter
+					.reportDataAccessError(
+							"Nepodařilo se zjistit, zda máte všechny úkoly odeslány",
+							e);
+			return false;
 		}
 	}
-	
 
-	
-	public String load() {
-		doLoad();
-
-		return "success";
+	public boolean isWaitingForRevision() {
+		// TODO
+		return false;
 	}
 
+	public boolean isHasAsignmentToCoCorect() {
+		// TODO
+		return false;
+	}
+
+	public boolean isHasAssignmentToSubmit() {
+		List<Assignment> assignments = null;
+
+		try {
+			assignments = getStudent().getUnsubmitedSolutionsAssignments(false,
+					false);
+		} catch (DataAccessException e) {
+			ResultReporter.reportDataAccessError(
+					"Nepodařilo se zjistit, zda máte úkoly k odeslání", e);
+			return false;
+		}
+
+		return assignments.isEmpty();
+	}
+
+	public boolean isHasAssignmentToSubmitLate() {
+		List<Assignment> assignments = null;
+
+		try {
+			assignments = getStudent().getUnsubmitedSolutionsAssignments(false,
+					false);
+			// TODO ty, co už jsou pozdě (ne všechny)
+		} catch (DataAccessException e) {
+			ResultReporter.reportDataAccessError(
+					"Nepodařilo se zjistit, zda máte úkoly k odeslání", e);
+			return false;
+		}
+
+		return assignments.isEmpty();
+	}
+
+	public boolean isUnactive() {
+		return !getStudent().isActive();
+	}
+
+	@Override
+	public boolean doLoad() {
+		//TODO ?
+		return true;
+	}
+	
 
 }

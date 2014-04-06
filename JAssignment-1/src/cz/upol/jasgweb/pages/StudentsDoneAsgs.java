@@ -6,19 +6,16 @@ import java.util.List;
 
 import cz.upol.jasg.jasgdb.data.assignments.Assignment;
 import cz.upol.jasg.jasgdb.data.solutions.Solution;
-import cz.upol.jasg.jasgdb.data.students.Student;
 import cz.upol.jasg.jasgdb.errors.DataAccessException;
 import cz.upol.jasgweb.ResultReporter;
-import cz.upol.jasgweb.login.Login;
 
-public class StudentsDoneAsgs {
-	private Student student;
+public class StudentsDoneAsgs extends StudentsDataView {
 	private LinkedHashMap<Assignment, List<Solution>> assignments;
 
 	public StudentsDoneAsgs() {
-		student = Login.getLogin().getLoggedStudent();
-
-		doLoad();		//TODO TOREM
+		super();
+		///assignments = new LinkedHashMap<Assignment, List<Solution>>();
+		doLoad();
 	}
 
 	public LinkedHashMap<Assignment, List<Solution>> getAsgsAndSltns() {
@@ -30,20 +27,16 @@ public class StudentsDoneAsgs {
 
 	}
 
-	private void doLoad() {
+	@Override
+	protected boolean doLoad() {
 		try {
-			assignments = student.getAssignmentsSolutions(true, true);
+			assignments = getStudent().getAssignmentsSolutions(true, true);
+			return true;
 		} catch (DataAccessException e) {
-			String summary = "Nenačtena data";
-			String detailedMessage = "Nepodařilo se načíst seznam odeslaných úkolů.";
-			ResultReporter.reportError(summary, detailedMessage, e);
+			String message = "Nepodařilo se načíst seznam odeslaných úkolů.";
+			ResultReporter.reportDataAccessError(message, e);
+			return false;
 		}
-	}
-
-	public String load() {
-		doLoad();
-
-		return "success";
 	}
 
 }

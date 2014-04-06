@@ -4,15 +4,23 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import cz.upol.jasg.jasgdb.errors.DataAccessException;
+
 public class ResultReporter {
 	private static final String RESULT_FORM_NAME = "resultForm";
 
+	public static final String ERROR = "error";
+	public static final String UNSUCCESS = "unsuccess";
+	public static final String SUCCESS = "success";
+	
+	
 	public ResultReporter() {
 	}
 
 	public String getResultFormName() {
 		return RESULT_FORM_NAME;
 	}
+	
 
 	public static void reportError(String summary, String detailedMessage,
 			Throwable e) {
@@ -25,6 +33,11 @@ public class ResultReporter {
 		reportError(summary, detailedMessage, null);
 	}
 
+	public static void reportDataAccessError(String message, DataAccessException e) {
+		String summary = "Chyba databáze";
+		reportError(summary, message, e);
+	}
+	
 	public static void reportWarning(String summary, String detailedMessage) {
 		submitMessage(FacesMessage.SEVERITY_WARN, summary, detailedMessage);
 

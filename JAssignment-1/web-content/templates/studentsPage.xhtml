@@ -8,17 +8,10 @@
 <ui:composition template="/templates/jasgPage.xhtml">
 	
 	<ui:define name="headers">
-		#{login.checkLogin}
-		<c:if test="#{!login.loggedIn}">
-<!-- 			<meta http-equiv="refresh" content="0;url=index.xhtml" />  -->
-		</c:if>
 	</ui:define>
 	
 	<ui:define name="userPanel">
-		<h:form id="studentPanelForm">
-		Student: #{login.loggedStudent.firstname} #{login.loggedStudent.surname}
-		<h:commandButton action="#{login.logOut}" value="Odhlásit" />
-		</h:form>
+		<ui:include src="/components/pageParts/studentsPanel.xhtml" />
 	</ui:define>
 	<ui:define name="body">
 		<ui:include src="/components/pageParts/studentsMenu.xhtml" />

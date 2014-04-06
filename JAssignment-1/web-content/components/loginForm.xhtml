@@ -21,7 +21,7 @@
 				<br />
 
 				<h:outputLabel value="Heslo:" />
-				<h:inputText id="password" value="#{loginForm.password}"
+				<h:inputSecret id="password" value="#{loginForm.password}"
 					validator="#{loginForm.passwordValidator.validate}" />
 				<h:message for="password" />
 

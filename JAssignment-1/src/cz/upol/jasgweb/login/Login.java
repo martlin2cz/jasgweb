@@ -1,6 +1,5 @@
 package cz.upol.jasgweb.login;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.ServletRequest;
 
 import cz.upol.jasg.jasgdb.data.students.Student;
@@ -9,9 +8,7 @@ import cz.upol.jasgweb.ResultReporter;
 import cz.upol.jasgweb.Session;
 
 public class Login {
-	private static final String ERROR = "error";
-	private static final String UNSUCCESS = "unsuccess";
-	private static final String SUCCESS = "success";
+
 
 	public static final String MANAGED_BEAN_NAME = "login";
 	public static final String MAIN_PAGE = "index.xhtml";
@@ -47,16 +44,23 @@ public class Login {
 		return loggedStudent != null;
 	}
 
-	public String getCheckLogin() throws AuthenticationException {
-		if (isLoggedIn()) {
-			return SUCCESS;
-		} else {
-			ResultReporter.reportWarning("Nejste přihlášen",
-					"Nejste přihlášen přihlašete se");
-			// Session.reloadTo("");
-			// throw new AuthenticationException("Tady nemáš co dělat");
+	public static boolean isLoggedInStatic() {
+		Login login = getLogin();
 
-			return UNSUCCESS;
+		if (login != null) {
+			return login.isLoggedIn();
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean isLoggedInStatic(ServletRequest request) {
+		Login login = getLogin(request);
+
+		if (login != null) {
+			return login.isLoggedIn();
+		} else {
+			return false;
 		}
 	}
 
@@ -68,14 +72,14 @@ public class Login {
 
 			if (studentToLogIn != null) {
 				loginSuccessfull(studentToLogIn);
-				return SUCCESS;
+				return ResultReporter.SUCCESS;
 			} else {
 				loginUnsuccessfull(username, password);
-				return UNSUCCESS;
+				return ResultReporter.UNSUCCESS;
 			}
 		} catch (DataAccessException e) {
 			loginError(e);
-			return ERROR;
+			return ResultReporter.ERROR;
 		}
 	}
 

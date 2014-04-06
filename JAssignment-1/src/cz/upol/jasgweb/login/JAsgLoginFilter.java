@@ -19,7 +19,7 @@ public class JAsgLoginFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig config) throws ServletException {
 	}
 
 	@Override
@@ -30,8 +30,7 @@ public class JAsgLoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 
-		Login login = Login.getLogin(request);
-		boolean logged = login.isLoggedIn();
+		boolean logged = Login.isLoggedInStatic(request);
 
 		if (!logged) {
 			doFilterReload(request, response);
@@ -41,18 +40,25 @@ public class JAsgLoginFilter implements Filter {
 
 	}
 
-	private void doFilterReload(ServletRequest arg0, ServletResponse arg1)
+	private void doFilterReload(ServletRequest request, ServletResponse response)
 			throws IOException {
-		if (arg0 instanceof HttpServletRequest
-				&& arg1 instanceof HttpServletResponse) {
-			HttpServletRequest request = (HttpServletRequest) arg0;
-			HttpServletResponse response = (HttpServletResponse) arg1;
+		
+		
+		if (request instanceof HttpServletRequest
+				&& response instanceof HttpServletResponse) {
+			HttpServletRequest httpRequest = (HttpServletRequest) request;
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 			String requestPath;
-			requestPath = request.getContextPath();
-			response.sendRedirect(requestPath + "/" + Login.MAIN_PAGE);
+			
+			requestPath = httpRequest.getContextPath();
+			httpResponse.sendRedirect(requestPath + "/" + Login.MAIN_PAGE);
+			
 			ResultReporter
 					.reportWarning("Nejste přihlášen", "Nejste přihlášen");
+			
+			//httpRequest.getSession().getServletContext().get
+			System.out.println("Nepřihlášen, provádím přesměrování ...");
 		}
 	}
 

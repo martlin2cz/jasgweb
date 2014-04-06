@@ -2,25 +2,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition template="/templates/studentsPage.xhtml">
 	<ui:define name="content">
 		<h1>Přehled</h1>
-		Student: #{login.loggedStudent.firstname} #{login.loggedStudent.surname}<br />
-		Odevzdané úkoly: [0]<br />
-		Zbývá odevzdat: [1]<br />
-
-		<h1>Úkoly k odevzdání</h1>
-		<h:dataTable var="assignment" value="#{studentsSummary.asgsToSubmit}">
-			<h:column>
-				<div style="border: 1px solid #C0C0C0">
-					<h4>#{assignment.title}</h4>
-					<p>#{assignment.description}</p>
-					[Nahrát řešení]
-				</div>
-			</h:column>
-		</h:dataTable>
+		
+		<c:choose>
+			<c:when test="#{studentsSummary.hasCredit}">
+				Blahopřeji, máte zápočet. :-)
+			</c:when>
+			<c:when test="#{studentsSummary.unactive}">
+				Tento předmět již nestudujete. :-(
+			</c:when>
+			<c:when test="#{studentsSummary.hasAssignmentToSubmitLate}">
+				Máte úkol(y) k vypracování. Pozor, některé jsou po deadlinu!
+			</c:when>		
+			<c:when test="#{studentsSummary.hasAssignmentToSubmit}">
+				Máte úkol(y) k vypracování.
+			</c:when>
+			<c:when test="#{studentsSummary.hasAsignmentToCoCorect}">
+				Některý úkol, který jste odeslali nebyl schválen.
+			</c:when>
+			<c:when test="#{studentsSummary.waitingForRevision}">
+				Máte odeslána řešení všech úkolů a čekáte na jejich kontrolu.
+			</c:when>
+			<c:when test="#{studentsSummary.hasAllAssignmentsOK}">
+				Máte všechna řešení odeslána a schválena.
+			</c:when>
+		</c:choose>
 	</ui:define>
 </ui:composition>
 </html>
