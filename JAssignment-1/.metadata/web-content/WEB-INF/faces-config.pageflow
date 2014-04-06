@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" name="usss" comment="sss" id="pf13967328928610" configfile="/JAssignment-1/web-content/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf13967333409647" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf13967333409648 pf139673428920911 pf139673585171413 pf139674313196121 pf139674313196122" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/student/welcome.xhtml" x="384" id="pf13967333409649" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13967333409648" path="/pages/student/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf139673428920912" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf139673428920911 pf139673585171413" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/student/done.xhtml" id="pf139674313196123" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf139674313196121" path="/pages/student/done.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/student/summary.xhtml" id="pf139674313196224" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf139674313196122" path="/pages/student/summary.xhtml"/>
+  <links id="pf13967333409648" target="pf13967333409649" source="pf13967333409647" outcome="success" fromaction="#{loginForm.logIn}"/>
+  <links id="pf139673428920911" target="pf139673428920912" source="pf13967333409647" fromaction="#{login.logOut}"/>
+  <links id="pf139673585171413" target="pf139673428920912" source="pf13967333409647" outcome="unsuccess" fromaction="#{login.checkLogin}"/>
+  <links id="pf139674313196121" target="pf139674313196123" source="pf13967333409647" outcome="success" fromaction="#{studentsDoneAsgs.load}"/>
+  <links id="pf139674313196122" target="pf139674313196224" source="pf13967333409647" outcome="success" fromaction="#{studentsSummary.load}"/>
+</pageflow:Pageflow>
