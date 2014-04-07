@@ -2,6 +2,8 @@ package cz.upol.jasgweb.login;
 
 import javax.servlet.ServletRequest;
 
+import org.apache.log4j.Logger;
+
 import cz.upol.jasg.jasgdb.data.students.Student;
 import cz.upol.jasg.jasgdb.errors.DataAccessException;
 import cz.upol.jasgweb.ResultReporter;
@@ -67,6 +69,9 @@ public class Login {
 	public String logIn(String username, String password) {
 		Student studentToLogIn;
 
+		Logger loger = Logger.getLogger(this.getClass());
+		loger.info("Pokus o přihlášení ...");
+		
 		try {
 			studentToLogIn = Student.loadByLogin(username, password);
 

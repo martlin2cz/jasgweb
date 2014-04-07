@@ -49,5 +49,6 @@
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBoss Richfaces 3.3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
