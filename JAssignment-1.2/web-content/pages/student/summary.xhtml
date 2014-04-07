@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/studentsPage.xhtml">
+	<ui:define name="content">
+		<h1>Přehled</h1>
+		
+		<c:choose>
+			<c:when test="#{studentsSummary.hasCredit}">
+				Blahopřeji, máte zápočet. :-)
+			</c:when>
+			<c:when test="#{studentsSummary.unactive}">
+				Tento předmět již nestudujete. :-(
+			</c:when>
+			<c:when test="#{studentsSummary.hasAssignmentToSubmitLate}">
+				Máte úkol(y) k vypracování. Pozor, některé jsou po deadlinu!
+			</c:when>		
+			<c:when test="#{studentsSummary.hasAssignmentToSubmit}">
+				Máte úkol(y) k vypracování.
+			</c:when>
+			<c:when test="#{studentsSummary.hasAsignmentToCoCorect}">
+				Některý úkol, který jste odeslali nebyl schválen.
+			</c:when>
+			<c:when test="#{studentsSummary.waitingForRevision}">
+				Máte odeslána řešení všech úkolů a čekáte na jejich kontrolu.
+			</c:when>
+			<c:when test="#{studentsSummary.hasAllAssignmentsOK}">
+				Máte všechna řešení odeslána a schválena.
+			</c:when>
+		</c:choose>
+	</ui:define>
+</ui:composition>
+</html>

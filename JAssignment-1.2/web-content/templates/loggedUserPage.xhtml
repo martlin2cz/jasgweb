@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/jasgPage.xhtml">
+		
+	<ui:define name="userPanel">
+		<ui:include src="/components/pageParts/studentsPanel.xhtml" />
+	</ui:define>
+	
+	<ui:define name="body">
+		<nav id="pageMenu">
+			<ui:insert name="menu"></ui:insert>
+		</nav>
+		
+		<article id="pageBodyContent">
+			<ui:insert name="content"></ui:insert>
+		</article>
+	</ui:define>
+</ui:composition>
+</html>
